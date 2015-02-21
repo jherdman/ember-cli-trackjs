@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export function initialize(/* container, application */) {
+export function initialize(container, application) {
   // http://docs.trackjs.com/Examples/Integrating_with_Ember
   Ember.onerror = function (err) {
     if (window.trackJs) {
