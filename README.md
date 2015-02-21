@@ -1,4 +1,4 @@
-# ember-cli-trackjs
+# ember-cli-trackjs [![Build Status](https://travis-ci.org/jherdman/ember-cli-trackjs.svg)](https://travis-ci.org/jherdman/ember-cli-trackjs)
 
 Handles all of the boilerplate shit you need to use TrackJS in your fancy Ember
 application.
