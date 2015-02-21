@@ -1,6 +1,29 @@
-# Ember-cli-trackjs
+# ember-cli-trackjs
 
-This README outlines the details of collaborating on this Ember addon.
+Handles all of the boilerplate shit you need to use TrackJS in your fancy Ember
+application.
+
+## Settings
+
+Configure TrackJS in your application's `config/environment.js` file. Please
+see the [TrackJS documentation](http://docs.trackjs.com/Examples/Developing_Locally)
+for specific configuration options.
+
+### Example
+
+```javascript
+var ENV = {
+  trackJs: {
+    token: "1234567890"
+  }
+};
+
+if (environment === 'test') {
+  ENV.trackJs.enabled = false;
+}
+```
+
+See? Pretty much like you'd expect.
 
 ## Installation
 
