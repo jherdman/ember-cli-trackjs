@@ -14,27 +14,52 @@ for specific configuration options.
 ```javascript
 var ENV = {
   trackJs: {
-    token: "1234567890"
+    addon: {
+      url: "path/to/trackjs.js" // provided by TrackJS
+    },
+    config: {
+      token: "1234567890"
+    }
   }
 };
 
 if (environment === 'test') {
-  ENV.trackJs.enabled = false;
+  ENV.trackJs.config.enabled = false;
 }
 ```
 
 See? Pretty much like you'd expect.
 
+## Usage
+
+A service is exposed on your routes and controllers that you can use to report
+errors instead of having to use the global `window.trackJs` object.
+
+### Example in a Route
+
+```javascript
+export default {
+  beforeModel: function () {
+    this.trackjs.track('oh, snap. something bad happened');
+  }
+};
+```
+
+### Example in a Controller
+
+```javascript
+export default Ember.Controller.extend({
+  reportSomethingForSomeReason: function () {
+    this.reportError('oh, snap. something bad happened');
+  }.on('init')
+});
+```
+
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
-
-## Running
-
-* `ember server`
-* Visit your app at http://localhost:4200.
+```
+npm install --save-dev ember-cli-content-security-policy
+```
 
 ## Running Tests
 
@@ -44,5 +69,3 @@ See? Pretty much like you'd expect.
 ## Building
 
 * `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).

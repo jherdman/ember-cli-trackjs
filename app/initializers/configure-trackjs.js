@@ -4,7 +4,7 @@ export function initialize(container, application) {
   // http://docs.trackjs.com/Examples/Integrating_with_Ember
   Ember.onerror = function (err) {
     if (window.trackJs) {
-      window.trackJs.track(error);
+      window.trackJs.track(err);
     }
 
     Ember.Logger.assert(false, err);
@@ -12,7 +12,7 @@ export function initialize(container, application) {
 
   Ember.RSVP.on('error', function (err) {
     if (window.trackJs) {
-      window.trackJs.track(error);
+      window.trackJs.track(err);
     }
 
     Ember.Logger.assert(false, err);
