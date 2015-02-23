@@ -50,7 +50,7 @@ export default {
 ```javascript
 export default Ember.Controller.extend({
   reportSomethingForSomeReason: function () {
-    this.reportError('oh, snap. something bad happened');
+    this.trackjs.track('oh, snap. something bad happened');
   }.on('init')
 });
 ```
