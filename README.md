@@ -58,7 +58,7 @@ export default Ember.Controller.extend({
 ## Installation
 
 ```
-npm install --save-dev ember-cli-trackjs
+ember install:addon ember-cli-trackjs
 ```
 
 ## Running Tests
