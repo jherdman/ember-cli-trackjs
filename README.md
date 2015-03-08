@@ -1,4 +1,4 @@
-# ember-cli-trackjs [![Build Status](https://travis-ci.org/jherdman/ember-cli-trackjs.svg)](https://travis-ci.org/jherdman/ember-cli-trackjs)
+# ember-cli-trackjs [![Build Status][travid-badge]][travis-badge-url] [![Dependency Status][david-badge]][david-badge-url]
 
 Handles all of the boilerplate shit you need to use TrackJS in your fancy Ember
 application.
@@ -69,3 +69,8 @@ ember install:addon ember-cli-trackjs
 ## Building
 
 * `ember build`
+
+[travis-badge]: https://travis-ci.org/jherdman/ember-cli-trackjs.svg
+[travis-badge-url]: https://travis-ci.org/jherdman/ember-cli-trackjs
+[david-badge]: https://david-dm.org/jherdman/ember-cli-trackjs.svg
+[david-badge-url]: https://david-dm.org/jherdman/ember-cli-trackjs
