@@ -34,15 +34,13 @@ var dummyConfig = {
 
 module('Acceptance: Bootstrapping Works', {
   beforeEach: function() {
-    window.trackJs = fakeTrackJs;
     application = startApp();
   },
 
   afterEach: function() {
     Ember.run(application, 'destroy');
 
-    fakeTrackJs.reset();
-    window.trackJs = null;
+    window.trackJs._reset();
 
     fakeTrackJsConfig = {};
   }
@@ -82,8 +80,8 @@ test('configuration works', function(assert) {
   visit('/');
 
   andThen(function() {
-    var actualConfiguration = window._trackJs;
-    var expectedConfiguraiton = dummyConfig.trackJs.config;
+    let actualConfiguration = window._trackJs;
+    let expectedConfiguraiton = dummyConfig.trackJs.config;
 
     assert.deepEqual(actualConfiguration, expectedConfiguraiton);
   });
@@ -95,7 +93,7 @@ test('exposes a service on routes', function(assert) {
   visit('/');
 
   andThen(function() {
-    var isErrorFound = fakeTrackJs.errors.contains('route error');
+    let isErrorFound = window.trackJs._errors.contains('route error');
     assert.ok(isErrorFound);
   });
 });
@@ -106,7 +104,7 @@ test('exposes a service on controllers', function(assert) {
   visit('/');
 
   andThen(function() {
-    var isErrorFound = fakeTrackJs.errors.contains('controller error');
+    let isErrorFound = window.trackJs._errors.contains('controller error');
     assert.ok(isErrorFound);
   });
 });

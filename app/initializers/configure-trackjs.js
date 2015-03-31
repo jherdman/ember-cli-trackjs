@@ -1,20 +1,16 @@
 import Ember from 'ember';
 
 export function initialize(container, application) {
+  let trackJs = container.lookup('service:trackjs');
+
   // http://docs.trackjs.com/Examples/Integrating_with_Ember
   Ember.onerror = function (err) {
-    if (window.trackJs) {
-      window.trackJs.track(err);
-    }
-
+    trackJs.track(err);
     Ember.Logger.assert(false, err);
   };
 
   Ember.RSVP.on('error', function (err) {
-    if (window.trackJs) {
-      window.trackJs.track(err);
-    }
-
+    trackJs.track(err);
     Ember.Logger.assert(false, err);
   });
 }
