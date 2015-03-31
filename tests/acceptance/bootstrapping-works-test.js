@@ -93,7 +93,7 @@ test('exposes a service on routes', function(assert) {
   visit('/');
 
   andThen(function() {
-    let isErrorFound = window.trackJs._errors.contains('route error');
+    let isErrorFound = window.trackJs._errors.indexOf('route error') !== -1;
     assert.ok(isErrorFound);
   });
 });
@@ -104,7 +104,7 @@ test('exposes a service on controllers', function(assert) {
   visit('/');
 
   andThen(function() {
-    let isErrorFound = window.trackJs._errors.contains('controller error');
+    let isErrorFound = window.trackJs._errors.indexOf('controller error') !== -1;
     assert.ok(isErrorFound);
   });
 });
