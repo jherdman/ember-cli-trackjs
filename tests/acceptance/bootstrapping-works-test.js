@@ -41,16 +41,31 @@ module('Acceptance: Bootstrapping Works', {
   }
 });
 
-test('configuration works', function(assert) {
+test('script tag injection works', function(assert) {
   assert.expect(2);
 
   visit('/');
+
   // womp womp...
   let scriptTag = Ember.$('#trackjs-boilerplate');
 
   andThen(function() {
     assert.equal(scriptTag.data('token'), dummyConfig.trackJs.token);
     assert.equal(scriptTag.attr('src'), dummyConfig.trackJs.url);
+  });
+});
+
+test('configuration works', function(assert) {
+  assert.expect(3);
+
+  visit('/');
+
+  andThen(function() {
+    let actualConfig = window._trackJs;
+
+    assert.equal(typeof actualConfig.onError, 'function');
+    assert.ok(actualConfig.enabled);
+    assert.equal(actualConfig.user, 'timothy');
   });
 });
 

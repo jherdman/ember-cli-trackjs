@@ -4,7 +4,7 @@ export function initialize(container, application) {
 }
 
 export default {
-  name: 'trackjs-service',
+  name: 'set-up-trackjs-service',
   initialize: initialize,
-  after: 'configure-trackjs'
+  after: 'bootstrap-trackjs'
 };
