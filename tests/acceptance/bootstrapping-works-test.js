@@ -22,13 +22,8 @@ var fakeTrackJsConfig = {};
 // You'll have to manually sync this with the config found in the dummy app
 var dummyConfig = {
   trackJs: {
-    addon: {
-      url: '/fake-trackjs.js'
-    },
-
-    config: {
-      token: 'fake-token'
-    }
+    url: '/fake-trackjs.js',
+    token: 'fake-token'
   }
 };
 

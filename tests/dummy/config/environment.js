@@ -19,13 +19,8 @@ module.exports = function(environment) {
     },
 
     trackJs: {
-      addon: {
-        url: '/fake-trackjs.js'
-      },
-
-      config: {
-        token: 'fake-token'
-      }
+      url: '/fake-trackjs.js',
+      token: 'fake-token'
     }
   };
 
