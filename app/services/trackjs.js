@@ -8,22 +8,22 @@ import Ember from 'ember';
  */
 export default Ember.Service.extend({
   track: function() {
-    return window.trackJs.track.apply(window.trackJs, arguments);
+    return window.trackJs && window.trackJs.track.apply(window.trackJs, arguments);
   },
 
   configure: function() {
-    return window.trackJs.configure.apply(window.trackJs, arguments);
+    return window.trackJs && window.trackJs.configure.apply(window.trackJs, arguments);
   },
 
   attempt: function() {
-    return window.trackJs.attempt.apply(window.trackJs, arguments);
+    return window.trackJs && window.trackJs.attempt.apply(window.trackJs, arguments);
   },
 
   watch: function() {
-    return window.trackJs.watch.apply(window.trackJs, arguments);
+    return window.trackJs && window.trackJs.watch.apply(window.trackJs, arguments);
   },
 
   watchAll: function() {
-    return window.trackJs.watchAll.apply(window.trackJs, arguments);
+    return window.trackJs && window.trackJs.watchAll.apply(window.trackJs, arguments);
   }
 });
