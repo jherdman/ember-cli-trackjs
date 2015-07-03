@@ -22,13 +22,8 @@ var fakeTrackJsConfig = {};
 // You'll have to manually sync this with the config found in the dummy app
 var dummyConfig = {
   trackJs: {
-    addon: {
-      url: '/fake-trackjs.js'
-    },
-
-    config: {
-      token: 'fake-token'
-    }
+    url: '/fake-trackjs.js',
+    token: 'fake-token'
   }
 };
 
@@ -46,44 +41,31 @@ module('Acceptance: Bootstrapping Works', {
   }
 });
 
-// FIXME Get this to work. It seems like the acceptance tests aren't working correctly
-//
-//test('configuration tag is before library inclusion tag', function(assert) {
-//  assert.expect(1);
-//
-//  visit('/');
-//
-//  andThen(function() {
-//    var scriptTags = find('script');
-//    var isFound = !!find('script#trackjs-configuration + script#trackjs-boilerplate').length;
-//
-//    assert.ok(isFound, 'should be found');
-//  });
-//});
-//
-//test('points to the correct URL', function(assert) {
-//  assert.expect(1);
-//
-//  visit('/');
-//
-//  andThen(function() {
-//    var actualUrl = find('#trackjs-boilerplate').attr('src');
-//    var expectedUrl = dummyConfig.trackJs.addon.url;
-//
-//    assert.equal(actualUrl, expectedUrl);
-//  });
-//});
+test('script tag injection works', function(assert) {
+  assert.expect(2);
+
+  visit('/');
+
+  // womp womp...
+  let scriptTag = Ember.$('#trackjs-boilerplate');
+
+  andThen(function() {
+    assert.equal(scriptTag.data('token'), dummyConfig.trackJs.token);
+    assert.equal(scriptTag.attr('src'), dummyConfig.trackJs.url);
+  });
+});
 
 test('configuration works', function(assert) {
-  assert.expect(1);
+  assert.expect(3);
 
   visit('/');
 
   andThen(function() {
-    let actualConfiguration = window._trackJs;
-    let expectedConfiguraiton = dummyConfig.trackJs.config;
+    let actualConfig = window._trackJs;
 
-    assert.deepEqual(actualConfiguration, expectedConfiguraiton);
+    assert.equal(typeof actualConfig.onError, 'function');
+    assert.ok(actualConfig.enabled);
+    assert.equal(actualConfig.user, 'timothy');
   });
 });
 

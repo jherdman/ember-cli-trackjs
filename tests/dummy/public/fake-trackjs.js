@@ -2,7 +2,7 @@ window.trackJs = {
   configure: function(newOpts) {
     console.log("Configuring");
 
-    var originalOpts = window._trackJs;
+    var originalOpts = window._trackJs || {};
     var modifiedOpts = Ember.merge(originalOpts, newOpts);
 
     window._trackJs = modifiedOpts;
