@@ -33,13 +33,14 @@ See? Pretty much like you'd expect.
 ## Usage
 
 A service is exposed on your routes and controllers that you can use to report
-errors instead of having to use the global `window.trackJs` object.
+errors instead of having to use the global `window.trackJs` object, and you
+don't want to load TrackJS in all of your environments.
 
 ### Example in a Route
 
 ```javascript
 export default {
-  beforeModel: function () {
+  beforeModel() {
     this.trackjs.track('oh, snap. something bad happened');
   }
 };
@@ -49,22 +50,22 @@ export default {
 
 ```javascript
 export default Ember.Controller.extend({
-  reportSomethingForSomeReason: function () {
+  reportSomethingForSomeReason() {
     this.trackjs.track('oh, snap. something bad happened');
-  }.on('init')
+  }
 });
 ```
 
 ## Installation
 
 ```
-ember install:addon ember-cli-trackjs
+ember install ember-cli-trackjs
 ```
 
 ## Running Tests
 
-* `ember test`
-* `ember test --server`
+* `npm test` -- the entire test suite
+* `ember test --server` -- you're developing a new feature <3
 
 ## Building
 
