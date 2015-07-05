@@ -7,23 +7,23 @@ import Ember from 'ember';
  * easiest solution for now.
  */
 export default Ember.Service.extend({
-  track: function() {
+  track() {
     return window.trackJs && window.trackJs.track.apply(window.trackJs, arguments);
   },
 
-  configure: function() {
+  configure() {
     return window.trackJs && window.trackJs.configure.apply(window.trackJs, arguments);
   },
 
-  attempt: function() {
+  attempt() {
     return window.trackJs && window.trackJs.attempt.apply(window.trackJs, arguments);
   },
 
-  watch: function() {
+  watch() {
     return window.trackJs && window.trackJs.watch.apply(window.trackJs, arguments);
   },
 
-  watchAll: function() {
+  watchAll() {
     return window.trackJs && window.trackJs.watchAll.apply(window.trackJs, arguments);
   },
 
