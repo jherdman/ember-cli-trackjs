@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
-export function initialize(container, application) {
-  let trackJs = container.lookup('service:trackjs');
+export function initialize(application) {
+  let trackJs = application.container.lookup('service:trackjs');
 
   // http://docs.trackjs.com/Examples/Integrating_with_Ember
   Ember.onerror = function (err) {
