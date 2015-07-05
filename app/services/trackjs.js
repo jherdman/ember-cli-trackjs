@@ -25,5 +25,19 @@ export default Ember.Service.extend({
 
   watchAll: function() {
     return window.trackJs && window.trackJs.watchAll.apply(window.trackJs, arguments);
+  },
+
+  console: {
+    error() {
+      return window.trackJs && window.trackJs.console.error.apply(window.trackJs, arguments);
+    },
+
+    info() {
+      return window.trackJs && window.trackJs.console.info.apply(window.trackJs, arguments);
+    },
+
+    log() {
+      return window.trackJs && window.trackJs.console.log.apply(window.trackJs, arguments);
+    }
   }
 });
