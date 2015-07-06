@@ -30,6 +30,42 @@ if (environment === 'test') {
 
 See? Pretty much like you'd expect.
 
+### One Caveat
+
+TrackJS supports two configuration options that are functions, `onError` and
+`serialize`. These have been a bit problematic (#3, #4) as Ember CLI's
+`config/environment.js` does not allow you to include function options.
+
+Despite TrackJS' documentation stating that these options cannot be change
+after loading, you can, though it's not encouraged. To work around this
+problem we can use the `configure()` function in an initializer:
+
+```javascript
+// app/instance-initializers/configure-trackjs.js
+
+export function initialize(application) {
+  const trackJs = application.container.lookup('service:trackjs');
+
+  trackJs.configure({
+    onError(payload, err) {
+      // exclude errors from log in page
+      if (payload.url && payload.url.indexOf('login') > 0) {
+        return false;
+      }
+
+      return true;
+    }
+  });
+}
+
+export default {
+  name: 'trackjs-error-and-serializer-configuration',
+  initialize: initialize
+}
+```
+
+Yeah, it's not ideal. I'm open to pull requests to make this sexier :)
+
 ## Usage
 
 A service is exposed on your routes and controllers that you can use to report
