@@ -4,19 +4,6 @@ import startApp from '../helpers/start-app';
 
 var application;
 
-var fakeTrackJs = {
-  errors: [],
-
-  track: function(errorOrString) {
-    console.error(errorOrString);
-    this.errors.push(errorOrString);
-  },
-
-  reset: function() {
-    this.errors = [];
-  }
-};
-
 var fakeTrackJsConfig = {};
 
 // You'll have to manually sync this with the config found in the dummy app
