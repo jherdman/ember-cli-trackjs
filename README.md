@@ -14,9 +14,6 @@ for specific configuration options.
 ```javascript
 var ENV = {
   trackJs: {
-    addon: {
-      url: "path/to/trackjs.js" // provided by TrackJS
-    },
     config: {
       token: "1234567890"
     }
