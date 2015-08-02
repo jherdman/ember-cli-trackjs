@@ -3,16 +3,11 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 
 var application;
-
-var fakeTrackJsConfig = {};
+var trackSpy;
 
 // You'll have to manually sync this with the config found in the dummy app
 var dummyConfig = {
   trackJs: {
-    addon: {
-      url: '/fake-trackjs.js'
-    },
-
     config: {
       token: 'fake-token'
     }
@@ -22,14 +17,16 @@ var dummyConfig = {
 module('Acceptance: Bootstrapping Works', {
   beforeEach: function() {
     application = startApp();
+
+    trackSpy = sinon.spy(window.trackJs, 'track');
   },
 
   afterEach: function() {
     Ember.run(application, 'destroy');
 
-    window.trackJs._reset();
+    window.trackJs.track.restore();
 
-    fakeTrackJsConfig = {};
+    trackSpy = null;
   }
 });
 
@@ -80,8 +77,7 @@ test('exposes a service on routes', function(assert) {
   visit('/');
 
   andThen(function() {
-    let isErrorFound = window.trackJs._errors.indexOf('route error') !== -1;
-    assert.ok(isErrorFound);
+    assert.ok(trackSpy.withArgs('route error').calledOnce);
   });
 });
 
@@ -91,7 +87,6 @@ test('exposes a service on controllers', function(assert) {
   visit('/');
 
   andThen(function() {
-    let isErrorFound = window.trackJs._errors.indexOf('controller error') !== -1;
-    assert.ok(isErrorFound);
+    assert.ok(trackSpy.withArgs('controller error').calledOnce);
   });
 });
