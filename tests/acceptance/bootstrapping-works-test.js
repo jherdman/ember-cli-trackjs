@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
+import sinon from 'sinon';
 
 var application;
 var trackSpy;
