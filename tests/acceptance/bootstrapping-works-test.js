@@ -3,11 +3,11 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import sinon from 'sinon';
 
-var application;
-var trackSpy;
+let application;
+let trackSpy;
 
 // You'll have to manually sync this with the config found in the dummy app
-var dummyConfig = {
+const dummyConfig = {
   trackJs: {
     config: {
       token: 'fake-token'
@@ -16,48 +16,19 @@ var dummyConfig = {
 };
 
 module('Acceptance: Bootstrapping Works', {
-  beforeEach: function() {
+  beforeEach() {
     application = startApp();
 
     trackSpy = sinon.spy(window.trackJs, 'track');
   },
 
-  afterEach: function() {
+  afterEach() {
     Ember.run(application, 'destroy');
-
-    window.trackJs.track.restore();
+    Ember.run(window.trackJs.track, 'restore');
 
     trackSpy = null;
   }
 });
-
-// FIXME Get this to work. It seems like the acceptance tests aren't working correctly
-//
-//test('configuration tag is before library inclusion tag', function(assert) {
-//  assert.expect(1);
-//
-//  visit('/');
-//
-//  andThen(function() {
-//    var scriptTags = find('script');
-//    var isFound = !!find('script#trackjs-configuration + script#trackjs-boilerplate').length;
-//
-//    assert.ok(isFound, 'should be found');
-//  });
-//});
-//
-//test('points to the correct URL', function(assert) {
-//  assert.expect(1);
-//
-//  visit('/');
-//
-//  andThen(function() {
-//    var actualUrl = find('#trackjs-boilerplate').attr('src');
-//    var expectedUrl = dummyConfig.trackJs.addon.url;
-//
-//    assert.equal(actualUrl, expectedUrl);
-//  });
-//});
 
 test('configuration works', function(assert) {
   assert.expect(1);

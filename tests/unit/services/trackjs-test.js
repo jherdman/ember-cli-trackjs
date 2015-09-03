@@ -3,25 +3,25 @@ import {
   test
 } from 'ember-qunit';
 
-var fakeTrackJs = {
+let fakeTrackJs = {
   version: '1.2.3',
 
-  track: function () {
+  track() {
     return 'called it!';
   },
 };
 
 moduleFor('service:trackjs', {
-  beforeEach: function() {
+  beforeEach() {
     window.trackJs = fakeTrackJs;
   },
 
-  afterEach: function() {
+  afterEach() {
     window.trackJs = undefined;
   }
 });
 
 test('method proxying', function(assert) {
-  var ret = this.subject().track();
+  let ret = this.subject().track();
   assert.equal(ret, 'called it!');
 });
