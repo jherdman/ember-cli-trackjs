@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-trackjs",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0-beta.2",
   "description": "Use TrackJS with your fancy Ember CLI powered application",
   "directories": {
     "doc": "doc",
