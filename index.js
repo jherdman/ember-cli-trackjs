@@ -11,7 +11,7 @@ module.exports = {
     var trackBoilerPlate;
     var addonConfig;
 
-    if (type === 'head') {
+    if (type === 'head-footer') {
       trackOpts = config.trackJs || {};
       trackConfig = trackOpts.config || {};
 
