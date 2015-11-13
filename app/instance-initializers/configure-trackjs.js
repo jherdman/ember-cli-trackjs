@@ -19,8 +19,12 @@ export function initialize(application) {
   };
 
   Ember.RSVP.on('error', function (err) {
-    trackJs.track(err);
-    Ember.Logger.assert(false, err);
+    if (err.name === 'TransitionError') {
+      Ember.debug('Ignoring TransitionError:', err);
+    } else {
+      trackJs.track(err);
+      Ember.Logger.assert(false, err);
+    }
   });
 }
 
