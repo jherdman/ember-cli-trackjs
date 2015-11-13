@@ -10,8 +10,8 @@ export function initialize(application) {
 
   // http://docs.trackjs.com/Examples/Integrating_with_Ember
   Ember.onerror = function (err) {
-    if (err.name === 'TransitionError') {
-      Ember.debug('Ignoring TransitionError:', err);
+    if (err.name === 'TransitionAborted') {
+      Ember.debug('Ignoring TransitionAborted:', err);
     } else {
       trackJs.track(err);
       Ember.Logger.assert(false, err);
@@ -19,8 +19,8 @@ export function initialize(application) {
   };
 
   Ember.RSVP.on('error', function (err) {
-    if (err.name === 'TransitionError') {
-      Ember.debug('Ignoring TransitionError:', err);
+    if (err.name === 'TransitionAborted') {
+      Ember.debug('Ignoring TransitionAborted:', err);
     } else {
       trackJs.track(err);
       Ember.Logger.assert(false, err);
