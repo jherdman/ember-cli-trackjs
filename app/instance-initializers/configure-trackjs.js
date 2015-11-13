@@ -10,8 +10,12 @@ export function initialize(application) {
 
   // http://docs.trackjs.com/Examples/Integrating_with_Ember
   Ember.onerror = function (err) {
-    trackJs.track(err);
-    Ember.Logger.assert(false, err);
+    if (err.name === 'TransitionError') {
+      Ember.debug('Ignoring TransitionError:', err);
+    } else {
+      trackJs.track(err);
+      Ember.Logger.assert(false, err);
+    }
   };
 
   Ember.RSVP.on('error', function (err) {
