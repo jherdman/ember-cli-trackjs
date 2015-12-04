@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ErrorHandler from '../utils/error-handler';
 
 export function initialize(application) {
   let trackJs = application.container.lookup('service:trackjs');
@@ -8,24 +9,9 @@ export function initialize(application) {
     version: appVersion
   });
 
-  // http://docs.trackjs.com/Examples/Integrating_with_Ember
-  Ember.onerror = function (err) {
-    if (err.name === 'TransitionError') {
-      Ember.debug('Ignoring TransitionError:', err);
-    } else {
-      trackJs.track(err);
-      Ember.Logger.assert(false, err);
-    }
-  };
+  let handler = new ErrorHandler(trackJs);
 
-  Ember.RSVP.on('error', function (err) {
-    if (err.name === 'TransitionError') {
-      Ember.debug('Ignoring TransitionError:', err);
-    } else {
-      trackJs.track(err);
-      Ember.Logger.assert(false, err);
-    }
-  });
+  Ember.onerror = handler.report;
 }
 
 export default {
