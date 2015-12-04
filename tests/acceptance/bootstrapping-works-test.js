@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from '../helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from '../helpers/module-for-acceptance';
 import sinon from 'sinon';
 
-let application;
 let trackSpy;
 
 // You'll have to manually sync this with the config found in the dummy app
@@ -15,17 +14,13 @@ const dummyConfig = {
   }
 };
 
-module('Acceptance: Bootstrapping Works', {
+moduleForAcceptance('Acceptance: Bootstrapping Works', {
   beforeEach() {
-    application = startApp();
-
     trackSpy = sinon.spy(window.trackJs, 'track');
   },
 
   afterEach() {
-    Ember.run(application, 'destroy');
     Ember.run(window.trackJs.track, 'restore');
-
     trackSpy = null;
   }
 });

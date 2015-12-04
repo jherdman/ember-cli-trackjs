@@ -1,5 +1,4 @@
-/* jshint node: true */
-
+/*jshint node:true*/
 module.exports = {
   scenarios: [
     {
@@ -7,45 +6,30 @@ module.exports = {
       dependencies: { }
     },
     {
-      name: 'ember-1.12.1',
-      dependencies: {
-        'ember': '1.12.1'
-      },
-      resolutions: {
-        'ember': '1.12.1'
-      }
-    },
-    {
       name: 'ember-release',
       dependencies: {
-        'ember': 'components/ember#release',
-        'ember-data': 'components/ember-data#release'
+        'ember': 'components/ember#release'
       },
       resolutions: {
-        'ember': 'release',
-        'ember-data': 'release'
+        'ember': 'release'
       }
     },
     {
       name: 'ember-beta',
       dependencies: {
-        'ember': 'components/ember#beta',
-        'ember-data': 'components/ember-data#beta'
+        'ember': 'components/ember#beta'
       },
       resolutions: {
-        'ember': 'beta',
-        'ember-data': 'beta'
+        'ember': 'beta'
       }
     },
     {
       name: 'ember-canary',
       dependencies: {
-        'ember': 'components/ember#canary',
-        'ember-data': 'components/ember-data#canary'
+        'ember': 'components/ember#canary'
       },
       resolutions: {
-        'ember': 'canary',
-        'ember-data': 'canary'
+        'ember': 'canary'
       }
     }
   ]
