@@ -12,7 +12,8 @@
     "jquery": "^1.11.3",
     "loader.js": "ember-cli/loader.js#3.4.0",
     "qunit": "~1.20.0",
-    "sinonjs": "~1.14.1"
+    "sinonjs": "~1.14.1",
+    "es5-shim": "^4.0.5"
   },
   "devDependencies": {
     "trackjs": "~2.1.12"
