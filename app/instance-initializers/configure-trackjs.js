@@ -1,15 +1,17 @@
 import Ember from 'ember';
 import ErrorHandler from '../utils/error-handler';
 
-export function initialize(application) {
-  let trackJs = application.container.lookup('service:trackjs');
-  let appVersion = application.container.lookup('application:main').get('version');
+export function initialize(app) {
+  const instance = app.lookup ? app : app.container;
+
+  const trackJs = instance.lookup('service:trackjs');
+  const appVersion = instance.lookup('application:main').get('version');
 
   trackJs.configure({
     version: appVersion
   });
 
-  let handler = new ErrorHandler(trackJs);
+  const handler = new ErrorHandler(trackJs);
 
   Ember.onerror = handler.report.bind(handler);
 }
