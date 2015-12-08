@@ -11,7 +11,7 @@ export function initialize(application) {
 
   let handler = new ErrorHandler(trackJs);
 
-  Ember.onerror = handler.report;
+  Ember.onerror = handler.report.bind(handler);
 }
 
 export default {
