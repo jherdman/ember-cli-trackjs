@@ -41,7 +41,7 @@ problem we can use the `configure()` function in an initializer:
 // app/instance-initializers/configure-trackjs.js
 
 export function initialize(application) {
-  const trackJs = application.container.lookup('service:trackjs');
+  const trackJs = application.lookup('service:trackjs');
 
   trackJs.configure({
     onError(payload, err) {
