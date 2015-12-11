@@ -11,7 +11,7 @@ export function initialize(app) {
     version: appVersion
   });
 
-  const handler = new ErrorHandler(trackJs);
+  const handler = ErrorHandler.create({reporter: trackJs});
 
   Ember.onerror = handler.report.bind(handler);
 }

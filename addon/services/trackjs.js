@@ -6,7 +6,7 @@ import Ember from 'ember';
  * enough grief in trying to get this to work that this proxy seemed like the
  * easiest solution for now.
  */
-export default Ember.Service.extend({
+var TrackJS = Ember.Service.extend({
   track() {
     return window.trackJs && window.trackJs.track.apply(window.trackJs, arguments);
   },
@@ -41,3 +41,5 @@ export default Ember.Service.extend({
     }
   }
 });
+
+export default TrackJS;
