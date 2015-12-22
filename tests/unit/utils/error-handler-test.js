@@ -25,7 +25,7 @@ let handler = null;
 
 module('Unit | Utility | error handler', {
   beforeEach() {
-    handler = new ErrorHandler(trackJs);
+    handler = ErrorHandler.create({reporter: trackJs});
   },
 
   afterEach() {

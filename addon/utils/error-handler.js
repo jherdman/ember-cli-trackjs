@@ -2,18 +2,18 @@ import Ember from 'ember';
 
 const Logger = Ember.Logger;
 
-class ErrorHandler {
-  constructor(reporter) {
-    this.reporter = reporter;
-  }
+var ErrorHandler = Ember.Object.extend({
+  init: function() {
+    this.reporter = this.get('reporter');
+  },
 
-  report(error) {
+  report: function(error) {
     // If you pass a POJO to TrackJS, you'll see "[object Object]"
     // in reports instead of object content. :(
 
     // If the error is an Error object, we pass it directly.
     if (error instanceof Error) {
-      this.reporter.track(error);
+      this.get('reporter').track(error);
       Logger.error(error.stack);
 
       return;
@@ -43,9 +43,9 @@ class ErrorHandler {
       }
     }
 
-    this.reporter.track(serializedError);
+    this.get('reporter').track(serializedError);
     Logger.error(error);
   }
-}
+});
 
 export default ErrorHandler;
