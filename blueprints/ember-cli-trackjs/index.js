@@ -8,7 +8,7 @@ module.exports = {
 
   afterInstall: function() {
     return this.addBowerPackagesToProject([
-      { name: 'trackjs', target: '~2.1.13' }
+      { name: 'trackjs', target: '~2.2.0' }
     ]);
   }
 };
