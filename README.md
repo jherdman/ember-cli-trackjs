@@ -74,7 +74,7 @@ don't want to load TrackJS in all of your environments.
 ```javascript
 export default {
   beforeModel() {
-    this.trackjs.track('oh, snap. something bad happened');
+    this.get('trackjs').track('oh, snap. something bad happened');
   }
 };
 ```
@@ -84,7 +84,24 @@ export default {
 ```javascript
 export default Ember.Controller.extend({
   reportSomethingForSomeReason() {
-    this.trackjs.track('oh, snap. something bad happened');
+    this.get('trackjs').track('oh, snap. something bad happened');
+  }
+});
+```
+
+### Example in a Component
+
+```javascript
+export default Ember.Component.extend({
+  trackjs: Ember.inject.service('trackjs'),
+
+  actions: {
+    doSomething() {
+      // Let's use some other part of the TrackJS API
+      this.get('trackjs').attempt(function(a, b) {
+        return 5 + 4;
+      }, this, 5, 4);
+    }
   }
 });
 ```
