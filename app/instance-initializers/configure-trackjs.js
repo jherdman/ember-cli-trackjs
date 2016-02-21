@@ -2,6 +2,10 @@ import Ember from 'ember';
 import ErrorHandler from '../utils/error-handler';
 
 export function initialize(app) {
+  // Guard against Ember.onerror hiding test failures
+  // http://raytiley.com/posts/ember-onerror-troll
+  if ( Ember.testing ) { return; }
+
   const instance = app.lookup ? app : app.container;
 
   const trackJs = instance.lookup('service:trackjs');
