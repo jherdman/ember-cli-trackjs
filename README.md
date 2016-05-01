@@ -122,7 +122,7 @@ ember install ember-cli-trackjs
 * `ember build`
 
 [npm-badge]: https://badge.fury.io/js/ember-cli-trackjs.svg
-[npm-badge-url]: (http://badge.fury.io/js/ember-cli-trackjs)
+[npm-badge-url]: https://badge.fury.io/js/ember-cli-trackjs
 [travis-badge]: https://travis-ci.org/jherdman/ember-cli-trackjs.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/jherdman/ember-cli-trackjs
 [david-badge]: https://david-dm.org/jherdman/ember-cli-trackjs.svg
