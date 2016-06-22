@@ -18,6 +18,9 @@ export function initialize(app) {
   const handler = new ErrorHandler(trackJs);
 
   Ember.onerror = handler.report.bind(handler);
+  window.addEventListener('unhandledrejection', (event) => {
+    handler.report.call(handler, event.reason);
+  });
 }
 
 export default {
