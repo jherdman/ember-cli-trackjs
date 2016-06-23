@@ -28,7 +28,7 @@ class ErrorHandler {
       serializedError = JSON.stringify(error, null, 2);
     } catch (e) {
       // Protecting against circular reference errors
-      if (e.message = "Converting circular structure to JSON") {
+      if (e.message === "Converting circular structure to JSON") {
         // We have an object with circular references and thus
         // we can't serialize it into JSON. We have to extract
         // info from it manually.
