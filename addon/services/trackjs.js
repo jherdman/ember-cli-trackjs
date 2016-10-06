@@ -1,4 +1,7 @@
 import Ember from 'ember';
+import getOwner from 'ember-getowner-polyfill';
+
+const { computed } = Ember;
 
 /**
  * Provides an incomplete proxy to TrackJS. This is mostly because we can't
@@ -7,45 +10,53 @@ import Ember from 'ember';
  * easiest solution for now.
  */
 export default Ember.Service.extend({
+
+  _fastboot: computed(function() {
+    let owner = getOwner(this);
+    return owner.lookup('service:fastboot');
+  }),
+
+  _isFastBoot: computed.readOnly('_fastboot.isFastBoot'),
+
   track() {
-    return window.trackJs && window.trackJs.track.apply(window.trackJs, arguments);
+    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.track.apply(window.trackJs, arguments);
   },
 
   configure() {
-    return window.trackJs && window.trackJs.configure.apply(window.trackJs, arguments);
+    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.configure.apply(window.trackJs, arguments);
   },
 
   attempt() {
-    return window.trackJs && window.trackJs.attempt.apply(window.trackJs, arguments);
+    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.attempt.apply(window.trackJs, arguments);
   },
 
   watch() {
-    return window.trackJs && window.trackJs.watch.apply(window.trackJs, arguments);
+    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.watch.apply(window.trackJs, arguments);
   },
 
   watchAll() {
-    return window.trackJs && window.trackJs.watchAll.apply(window.trackJs, arguments);
+    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.watchAll.apply(window.trackJs, arguments);
   },
 
   addMetadata() {
-    return window.trackJs && window.trackJs.addMetadata.apply(window.trackJs, arguments);
+    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.addMetadata.apply(window.trackJs, arguments);
   },
 
   removeMetadata() {
-    return window.trackJs && window.trackJs.removeMetadata.apply(window.trackJs, arguments);
+    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.removeMetadata.apply(window.trackJs, arguments);
   },
 
   console: {
     error() {
-      return window.trackJs && window.trackJs.console.error.apply(window.trackJs, arguments);
+      return !this.get('_isFastBoot') && window.trackJs && window.trackJs.console.error.apply(window.trackJs, arguments);
     },
 
     info() {
-      return window.trackJs && window.trackJs.console.info.apply(window.trackJs, arguments);
+      return !this.get('_isFastBoot') && window.trackJs && window.trackJs.console.info.apply(window.trackJs, arguments);
     },
 
     log() {
-      return window.trackJs && window.trackJs.console.log.apply(window.trackJs, arguments);
+      return !this.get('_isFastBoot') && window.trackJs && window.trackJs.console.log.apply(window.trackJs, arguments);
     }
   }
 });
