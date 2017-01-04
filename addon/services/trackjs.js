@@ -1,7 +1,10 @@
 import Ember from 'ember';
-import getOwner from 'ember-getowner-polyfill';
 
-const { computed } = Ember;
+const {
+  computed,
+  getOwner,
+  Service,
+} = Ember;
 
 /**
  * Provides an incomplete proxy to TrackJS. This is mostly because we can't
@@ -9,8 +12,7 @@ const { computed } = Ember;
  * enough grief in trying to get this to work that this proxy seemed like the
  * easiest solution for now.
  */
-export default Ember.Service.extend({
-
+export default Service.extend({
   _fastboot: computed(function() {
     let owner = getOwner(this);
     return owner.lookup('service:fastboot');
