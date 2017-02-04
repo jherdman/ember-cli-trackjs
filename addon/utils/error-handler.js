@@ -2,6 +2,18 @@ import Ember from 'ember';
 
 const Logger = Ember.Logger;
 
+// https://github.com/emberjs/ember.js/blob/master/packages/ember-metal/lib/error_handler.js#L4-L14
+const getStack = error => {
+  let stack = error.stack;
+  let message = error.message;
+
+  if (stack && !stack.includes(message)) {
+    stack = `${message}\n${stack}`;
+  }
+
+  return stack;
+};
+
 class ErrorHandler {
   constructor(reporter) {
     this.reporter = reporter;
@@ -14,7 +26,7 @@ class ErrorHandler {
     // If the error is an Error object, we pass it directly.
     if (error instanceof Error) {
       this.reporter.track(error);
-      Logger.error(error.stack);
+      Logger.error(getStack(error));
 
       return;
     }
