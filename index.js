@@ -1,4 +1,4 @@
-/* jshint node: true */
+/* eslint-env node */
 'use strict';
 
 module.exports = {
@@ -9,7 +9,6 @@ module.exports = {
     var trackConfig;
     var trackConfiguration;
     var trackBoilerPlate;
-    var addonConfig;
 
     if (type === 'head-footer') {
       trackOpts = config.trackJs || {};
