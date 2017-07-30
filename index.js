@@ -11,30 +11,30 @@ module.exports = {
       }
     }
   },
-  contentFor: function (type, config) {
-    var trackOpts;
-    var trackConfig;
-    var trackConfiguration;
-    var trackBoilerPlate;
+  contentFor(type, config) {
+    let trackOpts;
+    let trackConfig;
+    let trackConfiguration;
+    let trackBoilerPlate;
 
     if (type === 'head-footer') {
       trackOpts = config.trackJs || {};
       trackConfig = trackOpts.config || {};
 
-      trackConfiguration = '<script type="text/javascript" id="trackjs-configuration">window._trackJs = ' + JSON.stringify(trackConfig) + ';</script>';
+      trackConfiguration = `<script type="text/javascript" id="trackjs-configuration">window._trackJs = ${JSON.stringify(trackConfig)};</script>`;
 
       if (trackOpts.url) {
-        trackBoilerPlate = '<script type="text/javascript" id="trackjs-boilerplate" src="' + trackOpts.url + '" crossorigin="anonymous"></script>';
+        trackBoilerPlate = `<script type="text/javascript" id="trackjs-boilerplate" src="${trackOpts.url}" crossorigin="anonymous"></script>`;
       }
 
       return [trackConfiguration, trackBoilerPlate].join('\n');
     }
   },
 
-  included: function (app) {
+  included(app) {
     this._super.included(app);
 
-    var options = app.options['ember-cli-trackjs'];
+    let options = app.options['ember-cli-trackjs'];
 
     if (!(options && options.cdn) && (!process.env.EMBER_CLI_FASTBOOT)) {
       app.import(app.options.project.nodeModulesPath + '/trackjs/tracker.js');
