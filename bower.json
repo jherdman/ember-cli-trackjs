@@ -1,6 +1,5 @@
 {
   "name": "ember-cli-trackjs",
   "devDependencies": {
-    "trackjs": "~2.6.2"
   }
 }

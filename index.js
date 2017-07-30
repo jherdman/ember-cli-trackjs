@@ -3,7 +3,14 @@
 
 module.exports = {
   name: 'ember-cli-trackjs',
-
+  options: {
+    nodeAssets: {
+      trackjs: {
+        srcDir: './',
+        include: ['tracker.js']
+      }
+    }
+  },
   contentFor: function (type, config) {
     var trackOpts;
     var trackConfig;
@@ -30,7 +37,7 @@ module.exports = {
     var options = app.options['ember-cli-trackjs'];
 
     if (!(options && options.cdn) && (!process.env.EMBER_CLI_FASTBOOT)) {
-      app.import(app.bowerDirectory + '/trackjs/tracker.js');
+      app.import(app.options.project.nodeModulesPath + '/trackjs/tracker.js');
     }
   }
 };
