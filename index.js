@@ -1,16 +1,14 @@
 /* eslint-env node */
 'use strict';
 
+const path = require('path');
+const Funnel = require('broccoli-funnel');
+const mergeTrees = require('broccoli-merge-trees');
+const map = require('broccoli-stew').map;
+
 module.exports = {
   name: 'ember-cli-trackjs',
-  options: {
-    nodeAssets: {
-      trackjs: {
-        srcDir: './',
-        include: ['tracker.js']
-      }
-    }
-  },
+
   contentFor(type, config) {
     let trackOpts;
     let trackConfig;
@@ -31,13 +29,33 @@ module.exports = {
     }
   },
 
+  treeForVendor(vendorTree) {
+    let trees = [];
+    if (vendorTree) {
+      trees.push(vendorTree);
+    }
+
+    let trackjsPath = path.dirname(require.resolve('trackjs'));
+    let trackerLib = new Funnel(trackjsPath, {
+      destDir: 'trackjs',
+      files: ['tracker.js']
+    });
+    trackerLib = map(
+      trackerLib,
+      content => `if (typeof FastBoot === 'undefined') { ${content} }`
+    );
+    trees.push(trackerLib);
+
+    return new mergeTrees(trees);
+  },
+
   included(app) {
     this._super.included(app);
 
     let options = app.options['ember-cli-trackjs'];
-
-    if (!(options && options.cdn) && (!process.env.EMBER_CLI_FASTBOOT)) {
-      app.import(app.options.project.nodeModulesPath + '/trackjs/tracker.js');
+    if (!(options && options.cdn)) {
+      let vendor = this.treePaths.vendor;
+      app.import(vendor + '/trackjs/tracker.js');
     }
   }
 };
