@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { on as upon } from '@ember/object/evented';
 
-var upon = Ember.on;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
   testService: upon('init', function() {
     this.trackjs.track('controller error');
   })

@@ -1,7 +1,5 @@
-import {
-  moduleFor,
-  test
-} from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
 let fakeTrackJs = {
   version: '1.2.3',
@@ -19,27 +17,29 @@ let fakeTrackJs = {
   }
 };
 
-moduleFor('service:trackjs', {
-  beforeEach() {
+module('service:trackjs', function(hooks) {
+  setupTest(hooks);
+
+  hooks.beforeEach(function() {
     window.trackJs = fakeTrackJs;
-  },
+  });
 
-  afterEach() {
+  hooks.afterEach(function() {
     window.trackJs = undefined;
-  }
-});
+  });
 
-test('method proxying', function(assert) {
-  let ret = this.subject().track();
-  assert.equal(ret, 'called it!');
-});
+  test('method proxying', function(assert) {
+    let ret = this.owner.lookup('service:trackjs').track();
+    assert.equal(ret, 'called it!');
+  });
 
-test('it proxies addMetadata to window.trackJs', function(assert) {
-  let ret = this.subject().addMetadata('add', 'custommetadata');
-  assert.equal(ret, 'addcustommetadata');
-});
+  test('it proxies addMetadata to window.trackJs', function(assert) {
+    let ret = this.owner.lookup('service:trackjs').addMetadata('add', 'custommetadata');
+    assert.equal(ret, 'addcustommetadata');
+  });
 
-test('it proxies removeMetadata to window.trackJs', function(assert) {
-  let ret = this.subject().removeMetadata('removecustommetadata');
-  assert.equal(ret, 'removecustommetadata');
+  test('it proxies removeMetadata to window.trackJs', function(assert) {
+    let ret = this.owner.lookup('service:trackjs').removeMetadata('removecustommetadata');
+    assert.equal(ret, 'removecustommetadata');
+  });
 });

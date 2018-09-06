@@ -1,6 +1,7 @@
-import Ember from 'ember';
-import { test } from 'qunit';
-import moduleForAcceptance from '../helpers/module-for-acceptance';
+import { visit } from '@ember/test-helpers';
+import { run } from '@ember/runloop';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
 import sinon from 'sinon';
 
 let trackSpy;
@@ -14,46 +15,42 @@ const dummyConfig = {
   }
 };
 
-moduleForAcceptance('Acceptance: Bootstrapping Works', {
-  beforeEach() {
+module('Acceptance: Bootstrapping Works', function(hooks) {
+  setupApplicationTest(hooks);
+
+  hooks.beforeEach(function() {
     trackSpy = sinon.spy(window.trackJs, 'track');
-  },
+  });
 
-  afterEach() {
-    Ember.run(window.trackJs.track, 'restore');
+  hooks.afterEach(function() {
+    run(window.trackJs.track, 'restore');
     trackSpy = null;
-  }
-});
+  });
 
-test('configuration works', function(assert) {
-  assert.expect(1);
+  test('configuration works', async function(assert) {
+    assert.expect(1);
 
-  visit('/');
+    await visit('/');
 
-  andThen(function() {
     let actualConfiguration = window._trackJs;
     let expectedConfiguraiton = dummyConfig.trackJs.config;
 
     assert.deepEqual(actualConfiguration, expectedConfiguraiton);
   });
-});
 
-test('exposes a service on routes', function(assert) {
-  assert.expect(1);
+  test('exposes a service on routes', async function(assert) {
+    assert.expect(1);
 
-  visit('/');
+    await visit('/');
 
-  andThen(function() {
     assert.ok(trackSpy.withArgs('route error').calledOnce);
   });
-});
 
-test('exposes a service on controllers', function(assert) {
-  assert.expect(1);
+  test('exposes a service on controllers', async function(assert) {
+    assert.expect(1);
 
-  visit('/');
+    await visit('/');
 
-  andThen(function() {
     assert.ok(trackSpy.withArgs('controller error').calledOnce);
   });
 });

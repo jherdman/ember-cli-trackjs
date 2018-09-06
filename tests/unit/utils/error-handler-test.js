@@ -23,28 +23,28 @@ let trackJs = {
 
 let handler = null;
 
-module('Unit | Utility | error handler', {
-  beforeEach() {
+module('Unit | Utility | error handler', function(hooks) {
+  hooks.beforeEach(function() {
     handler = new ErrorHandler(trackJs);
-  },
+  });
 
-  afterEach() {
+  hooks.afterEach(function() {
     handler = null;
 
     trackJs.reset();
-  }
-});
+  });
 
-test('it handles error instances', function(assert) {
-  handler.report(new Error('oh nose!'));
+  test('it handles error instances', function(assert) {
+    handler.report(new Error('oh nose!'));
 
-  assert.equal(trackJs.getError(0).message, 'oh nose!');
-});
+    assert.equal(trackJs.getError(0).message, 'oh nose!');
+  });
 
-test('it handles POJOs', function(assert) {
-  handler.report({ message: 'TransitionAborted' });
+  test('it handles POJOs', function(assert) {
+    handler.report({ message: 'TransitionAborted' });
 
-  let error = collapseWhitespace(trackJs.getError(0));
+    let error = collapseWhitespace(trackJs.getError(0));
 
-  assert.equal(error, `{ "message": "TransitionAborted" }`);
+    assert.equal(error, `{ "message": "TransitionAborted" }`);
+  });
 });

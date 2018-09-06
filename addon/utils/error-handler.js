@@ -1,7 +1,3 @@
-import Ember from 'ember';
-
-const Logger = Ember.Logger;
-
 // https://github.com/emberjs/ember.js/blob/master/packages/ember-metal/lib/error_handler.js#L4-L14
 const getStack = error => {
   let stack = error.stack;
@@ -26,7 +22,9 @@ class ErrorHandler {
     // If the error is an Error object, we pass it directly.
     if (error instanceof Error) {
       this.reporter.track(error);
-      Logger.error(getStack(error));
+
+      // eslint-disable-next-line no-console
+      console.error(getStack(error));
 
       return;
     }
@@ -56,7 +54,9 @@ class ErrorHandler {
     }
 
     this.reporter.track(serializedError);
-    Logger.error(error);
+
+    // eslint-disable-next-line no-console
+    console.error(error);
   }
 }
 
