@@ -1,9 +1,18 @@
 # ember-cli-trackjs [![npm version][npm-badge]][npm-badge-url] [![Build Status][travis-badge]][travis-badge-url] [![Dependency Status][david-badge]][david-badge-url] [![Ember Observer Score][ember-observer]][ember-observer-url]
+==============================================================================
 
 Handles all of the boilerplate shit you need to use TrackJS in your fancy Ember
 application.
 
-## Settings
+Installation
+------------------------------------------------------------------------------
+
+```
+ember install ember-cli-trackjs
+```
+
+Settings
+------------------------------------------------------------------------------
 
 Configure TrackJS in your application's `config/environment.js` file. Please
 see the [TrackJS documentation](http://docs.trackjs.com/Examples/Developing_Locally)
@@ -63,7 +72,8 @@ export default {
 
 Yeah, it's not ideal. I'm open to pull requests to make this sexier :)
 
-## Usage
+Usage
+------------------------------------------------------------------------------
 
 A service is exposed on your routes and controllers that you can use to report
 errors instead of having to use the global `window.trackJs` object, and you
@@ -106,20 +116,37 @@ export default Ember.Component.extend({
 });
 ```
 
-## Installation
+Contributing
+------------------------------------------------------------------------------
 
-```
-ember install ember-cli-trackjs
-```
+### Installation
 
-## Running Tests
+* `git clone <repository-url>`
+* `cd my-addon`
+* `npm install`
 
-* `npm test` -- the entire test suite
-* `ember test --server` -- you're developing a new feature <3
+### Linting
 
-## Building
+* `npm run lint:js`
+* `npm run lint:js -- --fix`
 
-* `ember build`
+### Running tests
+
+* `ember test` – Runs the test suite on the current Ember version
+* `ember test --server` – Runs the test suite in "watch mode"
+* `ember try:each` – Runs the test suite against multiple Ember versions
+
+### Running the dummy application
+
+* `ember serve`
+* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
+
+For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).
 
 [npm-badge]: https://badge.fury.io/js/ember-cli-trackjs.svg
 [npm-badge-url]: https://badge.fury.io/js/ember-cli-trackjs

@@ -1,8 +1,7 @@
-/* eslint-env node */
 'use strict';
 
 module.exports = {
-  name: 'ember-cli-trackjs',
+  name: require('./package').name,
   options: {
     nodeAssets: {
       trackjs: {
@@ -11,6 +10,7 @@ module.exports = {
       }
     }
   },
+
   contentFor(type, config) {
     let trackOpts;
     let trackConfig;
@@ -37,7 +37,7 @@ module.exports = {
     let options = app.options['ember-cli-trackjs'];
 
     if (!(options && options.cdn) && (!process.env.EMBER_CLI_FASTBOOT)) {
-      app.import(app.options.project.nodeModulesPath + '/trackjs/tracker.js');
+      app.import(require.resolve('trackjs'));
     }
   }
 };

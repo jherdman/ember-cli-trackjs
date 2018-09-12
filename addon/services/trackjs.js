@@ -1,10 +1,7 @@
-import Ember from 'ember';
-
-const {
-  computed,
-  getOwner,
-  Service,
-} = Ember;
+import Service, { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { getOwner } from '@ember/application';
 
 /**
  * Provides an incomplete proxy to TrackJS. This is mostly because we can't
@@ -13,12 +10,14 @@ const {
  * easiest solution for now.
  */
 export default Service.extend({
+  console: service('trackjs-console'),
+
   _fastboot: computed(function() {
     let owner = getOwner(this);
     return owner.lookup('service:fastboot');
   }),
 
-  _isFastBoot: computed.readOnly('_fastboot.isFastBoot'),
+  _isFastBoot: readOnly('_fastboot.isFastBoot'),
 
   track() {
     return !this.get('_isFastBoot') && window.trackJs && window.trackJs.track.apply(window.trackJs, arguments);
@@ -47,18 +46,4 @@ export default Service.extend({
   removeMetadata() {
     return !this.get('_isFastBoot') && window.trackJs && window.trackJs.removeMetadata.apply(window.trackJs, arguments);
   },
-
-  console: {
-    error() {
-      return !this.get('_isFastBoot') && window.trackJs && window.trackJs.console.error.apply(window.trackJs, arguments);
-    },
-
-    info() {
-      return !this.get('_isFastBoot') && window.trackJs && window.trackJs.console.info.apply(window.trackJs, arguments);
-    },
-
-    log() {
-      return !this.get('_isFastBoot') && window.trackJs && window.trackJs.console.log.apply(window.trackJs, arguments);
-    }
-  }
 });

@@ -1,25 +1,29 @@
+/* eslint-disable no-console */
+
+import { assign } from '@ember/polyfills';
+
 window.trackJs = {
-  configure: function(newOpts) {
+  configure(newOpts) {
     console.log("Configuring");
 
     var originalOpts = window._trackJs;
-    var modifiedOpts = Ember.merge(originalOpts, newOpts);
+    var modifiedOpts = assign(originalOpts, newOpts);
 
     window._trackJs = modifiedOpts;
   },
 
   _errors: [],
 
-  track: function(errorOrString) {
+  track(errorOrString) {
     console.error(errorOrString);
     this._errors.push(errorOrString);
   },
 
-  _reset: function() { this.errors = []; },
+  _reset() { this.errors = []; },
 
-  attempt: function() { console.log("Attempting"); },
+  attempt() { console.log("Attempting"); },
 
-  watch: function() { console.log("Watching"); },
+  watch() { console.log("Watching"); },
 
-  watchAll: function() { console.log("Watching all"); }
+  watchAll() { console.log("Watching all"); }
 };
