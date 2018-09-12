@@ -18,39 +18,47 @@ const dummyConfig = {
 module('Acceptance: Bootstrapping Works', function(hooks) {
   setupApplicationTest(hooks);
 
-  hooks.beforeEach(function() {
-    trackSpy = sinon.spy(window.trackJs, 'track');
+  module('import smoke test', function() {
+    test('it works', function(assert) {
+      assert.ok(window.trackJs.version);
+    });
   });
 
-  hooks.afterEach(function() {
-    run(window.trackJs.track, 'restore');
-    trackSpy = null;
-  });
+  module('service tests', function(hooks) {
+    hooks.beforeEach(function() {
+      trackSpy = sinon.spy(window.trackJs, 'track');
+    });
 
-  test('configuration works', async function(assert) {
-    assert.expect(1);
+    hooks.afterEach(function() {
+      run(window.trackJs.track, 'restore');
+      trackSpy = null;
+    });
 
-    await visit('/');
+    test('configuration works', async function(assert) {
+      assert.expect(1);
 
-    let actualConfiguration = window._trackJs;
-    let expectedConfiguraiton = dummyConfig.trackJs.config;
+      await visit('/');
 
-    assert.deepEqual(actualConfiguration, expectedConfiguraiton);
-  });
+      let actualConfiguration = window._trackJs;
+      let expectedConfiguraiton = dummyConfig.trackJs.config;
 
-  test('exposes a service on routes', async function(assert) {
-    assert.expect(1);
+      assert.deepEqual(actualConfiguration, expectedConfiguraiton);
+    });
 
-    await visit('/');
+    test('exposes a service on routes', async function(assert) {
+      assert.expect(1);
 
-    assert.ok(trackSpy.withArgs('route error').calledOnce);
-  });
+      await visit('/');
 
-  test('exposes a service on controllers', async function(assert) {
-    assert.expect(1);
+      assert.ok(trackSpy.withArgs('route error').calledOnce);
+    });
 
-    await visit('/');
+    test('exposes a service on controllers', async function(assert) {
+      assert.expect(1);
 
-    assert.ok(trackSpy.withArgs('controller error').calledOnce);
+      await visit('/');
+
+      assert.ok(trackSpy.withArgs('controller error').calledOnce);
+    });
   });
 });

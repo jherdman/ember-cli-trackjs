@@ -2,14 +2,6 @@
 
 module.exports = {
   name: require('./package').name,
-  options: {
-    nodeAssets: {
-      trackjs: {
-        srcDir: './',
-        include: ['tracker.js']
-      }
-    }
-  },
 
   contentFor(type, config) {
     let trackOpts;
