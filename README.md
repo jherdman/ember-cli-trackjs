@@ -1,5 +1,4 @@
 # ember-cli-trackjs [![npm version][npm-badge]][npm-badge-url] [![Build Status][travis-badge]][travis-badge-url] [![Dependency Status][david-badge]][david-badge-url] [![Ember Observer Score][ember-observer]][ember-observer-url]
-==============================================================================
 
 Handles all of the boilerplate shit you need to use TrackJS in your fancy Ember
 application.
