@@ -22,11 +22,11 @@ module.exports = function (environment) {
       // when it is created
     },
 
-    trackJs: {
-      config: {
-        token: 'fake-token'
-      }
-    }
+    trackjs: {
+      token: 'fake-token',
+      application: 'fake-application',
+      version: 'fake-version',
+    },
   };
 
   if (environment === 'development') {

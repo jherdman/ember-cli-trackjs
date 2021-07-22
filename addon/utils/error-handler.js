@@ -1,5 +1,5 @@
 // https://github.com/emberjs/ember.js/blob/master/packages/ember-metal/lib/error_handler.js#L4-L14
-const getStack = error => {
+const getStack = (error) => {
   let stack = error.stack;
   let message = error.message;
 
@@ -10,7 +10,7 @@ const getStack = error => {
   return stack;
 };
 
-class ErrorHandler {
+export default class ErrorHandler {
   constructor(reporter) {
     this.reporter = reporter;
   }
@@ -38,12 +38,11 @@ class ErrorHandler {
       serializedError = JSON.stringify(error, null, 2);
     } catch (e) {
       // Protecting against circular reference errors
-      if (e.message === "Converting circular structure to JSON") {
+      if (e.message === 'Converting circular structure to JSON') {
         // We have an object with circular references and thus
         // we can't serialize it into JSON. We have to extract
         // info from it manually.
-        serializedError =
-          `Object with circular references passed instead of an instance of Error.
+        serializedError = `Object with circular references passed instead of an instance of Error.
             error.message: ${error.message}
             error.name:    ${error.name}
           `;
@@ -59,5 +58,3 @@ class ErrorHandler {
     console.error(error);
   }
 }
-
-export default ErrorHandler;
