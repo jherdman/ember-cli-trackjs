@@ -1,8 +1,11 @@
 import Controller from '@ember/controller';
-import { on as upon } from '@ember/object/evented';
+import { inject as service } from '@ember/service';
 
-export default Controller.extend({
-  testService: upon('init', function() {
+export default class IndexController extends Controller {
+  @service trackjs;
+
+  init() {
+    super.init(...arguments);
     this.trackjs.track('controller error');
-  })
-});
+  }
+}

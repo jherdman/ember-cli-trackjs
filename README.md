@@ -3,55 +3,63 @@
 Handles all of the boilerplate shit you need to use TrackJS in your fancy Ember
 application.
 
-Installation
-------------------------------------------------------------------------------
+## Compatibility
+
+- Ember.js v3.20 or above
+- Ember CLI v3.20 or above
+- Node.js v10 or above
+
+## Installation
 
 ```
 ember install ember-cli-trackjs
 ```
 
-Settings
-------------------------------------------------------------------------------
+## Settings
 
 Configure TrackJS in your application's `config/environment.js` file. Please
-see the [TrackJS documentation](http://docs.trackjs.com/Examples/Developing_Locally)
+see the [TrackJS documentation](https://docs.trackjs.com/browser-agent/sdk-reference/agent-config/)
 for specific configuration options.
 
-### Example
-
 ```javascript
-var ENV = {
-  trackJs: {
-    config: {
-      token: "1234567890"
-    }
-  }
-};
+// config/environment.js
+module.exports = function () {
+  let ENV = {
+    trackjs: {
+      application: 'my-app', // defaults to `ENV.APP.name`
+      version: '1.2.3', // defaults to `ENV.APP.version`
+      token: '1234567890',
+    },
+  };
 
-if (environment === 'test') {
-  ENV.trackJs.config.enabled = false;
-}
+  if (environment === 'test') {
+    ENV.trackjs.token = null;
+  }
+
+  return ENV;
+};
 ```
 
-See? Pretty much like you'd expect.
+See? Pretty much like you'd expect. The `ENV.APP.name` and `ENV.APP.version` are provided by [ember-cli-app-version](https://github.com/ember-cli/ember-cli-app-version#ember-cli-app-version--).
 
 ### One Caveat
 
-TrackJS supports two configuration options that are functions, `onError` and
-`serialize`. These have been a bit problematic (#3, #4) as Ember CLI's
+TrackJS supports `onError` configuration option that is a function.
+This has been a bit problematic ([#4](https://github.com/jherdman/ember-cli-trackjs/issues/4)) as Ember CLI's
 `config/environment.js` does not allow you to include function options.
 
-Despite TrackJS' documentation stating that these options cannot be change
-after loading, you can, though it's not encouraged. To work around this
-problem we can use the `configure()` function in an initializer:
+To work around this problem we can use the `configure()` function in an initializer:
 
 ```javascript
-// app/instance-initializers/configure-trackjs.js
+// app/instance-initializers/trackjs.js
+export { initialize as parent } from 'ember-cli-trackjs/instance-initializers/trackjs';
 
-export function initialize(application) {
-  const trackJs = application.container.lookup('service:trackjs');
+export function initialize(appInstance) {
+  parent(...arguments);
 
-  trackJs.configure({
+  const trackjs = appInstance.lookup('service:trackjs');
+
+  trackjs.configure({
     onError(payload, err) {
       // exclude errors from log in page
       if (payload.url && payload.url.indexOf('login') > 0) {
@@ -59,91 +67,41 @@ export function initialize(application) {
       }
 
       return true;
-    }
+    },
   });
 }
 
 export default {
-  name: 'trackjs-error-and-serializer-configuration',
-  initialize: initialize
-}
+  initialize,
+};
 ```
 
 Yeah, it's not ideal. I'm open to pull requests to make this sexier :)
 
-Usage
-------------------------------------------------------------------------------
+## Usage
 
-A service is exposed on your routes and controllers that you can use to report
-errors instead of having to use the global `window.trackJs` object, and you
-don't want to load TrackJS in all of your environments.
-
-### Example in a Route
+The `trackjs` service can be injected into any framework object that you can use to report
+errors. This service provides same API as the TrackJS agent itself, see [TrackJS's documentation](https://docs.trackjs.com/browser-agent/sdk-reference/agent-methods/) for a complete list of available methods.
 
 ```javascript
-export default {
+// app/routes/index.js
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+
+export default class IndexRoute extends Route {
+  @service trackjs;
+
   beforeModel() {
-    this.get('trackjs').track('oh, snap. something bad happened');
+    this.trackjs.track('oh, snap. something bad happened');
   }
-};
+}
 ```
 
-### Example in a Controller
+## Contributing
 
-```javascript
-export default Ember.Controller.extend({
-  reportSomethingForSomeReason() {
-    this.get('trackjs').track('oh, snap. something bad happened');
-  }
-});
-```
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-### Example in a Component
-
-```javascript
-export default Ember.Component.extend({
-  trackjs: Ember.inject.service('trackjs'),
-
-  actions: {
-    doSomething() {
-      // Let's use some other part of the TrackJS API
-      this.get('trackjs').attempt(function(a, b) {
-        return 5 + 4;
-      }, this, 5, 4);
-    }
-  }
-});
-```
-
-Contributing
-------------------------------------------------------------------------------
-
-### Installation
-
-* `git clone <repository-url>`
-* `cd my-addon`
-* `npm install`
-
-### Linting
-
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Running tests
-
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
-
-### Running the dummy application
-
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
-
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
 

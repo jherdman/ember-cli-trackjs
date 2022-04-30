@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = {
-  normalizeEntityName: function() {
+  normalizeEntityName: function () {
     // Silence error. We don't actually care about this.
   },
 };

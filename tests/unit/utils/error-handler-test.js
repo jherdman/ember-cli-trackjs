@@ -18,29 +18,29 @@ let trackJs = {
     return this._errors[n];
   },
 
-  _errors: []
+  _errors: [],
 };
 
 let handler = null;
 
-module('Unit | Utility | error handler', function(hooks) {
-  hooks.beforeEach(function() {
+module('Unit | Utility | error handler', function (hooks) {
+  hooks.beforeEach(function () {
     handler = new ErrorHandler(trackJs);
   });
 
-  hooks.afterEach(function() {
+  hooks.afterEach(function () {
     handler = null;
 
     trackJs.reset();
   });
 
-  test('it handles error instances', function(assert) {
+  test('it handles error instances', function (assert) {
     handler.report(new Error('oh nose!'));
 
     assert.equal(trackJs.getError(0).message, 'oh nose!');
   });
 
-  test('it handles POJOs', function(assert) {
+  test('it handles POJOs', function (assert) {
     handler.report({ message: 'TransitionAborted' });
 
     let error = collapseWhitespace(trackJs.getError(0));

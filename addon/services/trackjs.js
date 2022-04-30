@@ -1,49 +1,69 @@
-import Service, { inject as service } from '@ember/service';
-import { readOnly } from '@ember/object/computed';
-import { computed } from '@ember/object';
-import { getOwner } from '@ember/application';
+import Service from '@ember/service';
+import { TrackJS } from 'trackjs';
 
 /**
- * Provides an incomplete proxy to TrackJS. This is mostly because we can't
- * seem to rely upon `window.trackJs` being initialized... Or at least I had
- * enough grief in trying to get this to work that this proxy seemed like the
- * easiest solution for now.
+ * Proxies all the agent methods, see https://docs.trackjs.com/browser-agent/sdk-reference/agent-methods/.
  */
-export default Service.extend({
-  console: service('trackjs-console'),
+export default class TrackJSService extends Service {
+  console = {
+    error() {
+      return TrackJS.isInstalled() && TrackJS.console.error(...arguments);
+    },
 
-  _fastboot: computed(function() {
-    let owner = getOwner(this);
-    return owner.lookup('service:fastboot');
-  }),
+    warn() {
+      return TrackJS.isInstalled() && TrackJS.console.warn(...arguments);
+    },
 
-  _isFastBoot: readOnly('_fastboot.isFastBoot'),
+    info() {
+      return TrackJS.isInstalled() && TrackJS.console.info(...arguments);
+    },
+
+    log() {
+      return TrackJS.isInstalled() && TrackJS.console.log(...arguments);
+    },
+
+    debug() {
+      return TrackJS.isInstalled() && TrackJS.console.debug(...arguments);
+    },
+  };
+
+  get version() {
+    return TrackJS.version;
+  }
 
   track() {
-    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.track.apply(window.trackJs, arguments);
-  },
+    return TrackJS.isInstalled() && TrackJS.track(...arguments);
+  }
+
+  install() {
+    return !TrackJS.isInstalled() && TrackJS.install(...arguments);
+  }
+
+  isInstalled() {
+    return TrackJS.isInstalled();
+  }
 
   configure() {
-    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.configure.apply(window.trackJs, arguments);
-  },
+    return TrackJS.isInstalled() && TrackJS.configure(...arguments);
+  }
 
   attempt() {
-    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.attempt.apply(window.trackJs, arguments);
-  },
+    return TrackJS.isInstalled() && TrackJS.attempt(...arguments);
+  }
 
   watch() {
-    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.watch.apply(window.trackJs, arguments);
-  },
+    return TrackJS.isInstalled() && TrackJS.watch(...arguments);
+  }
 
   watchAll() {
-    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.watchAll.apply(window.trackJs, arguments);
-  },
+    return TrackJS.isInstalled() && TrackJS.watchAll(...arguments);
+  }
 
   addMetadata() {
-    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.addMetadata.apply(window.trackJs, arguments);
-  },
+    return TrackJS.isInstalled() && TrackJS.addMetadata(...arguments);
+  }
 
   removeMetadata() {
-    return !this.get('_isFastBoot') && window.trackJs && window.trackJs.removeMetadata.apply(window.trackJs, arguments);
-  },
-});
+    return TrackJS.isInstalled() && TrackJS.removeMetadata(...arguments);
+  }
+}
