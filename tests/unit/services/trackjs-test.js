@@ -19,7 +19,10 @@ module('Unit | Service | trackjs', function (hooks) {
   setupTest(hooks);
 
   test('it returns version', async function (assert) {
-    assert.equal(this.owner.lookup('service:trackjs').version, '3.9.2');
+    assert.strictEqual(
+      this.owner.lookup('service:trackjs').version,
+      TrackJS.version
+    );
   });
 
   test('it proxies track to TrackJS', function (assert) {

@@ -7,6 +7,6 @@ module('FastBoot | bootstrap', function (hooks) {
   test('it works', async function (assert) {
     let { statusCode } = await visit('/');
 
-    assert.equal(statusCode, 200);
+    assert.strictEqual(statusCode, 200);
   });
 });

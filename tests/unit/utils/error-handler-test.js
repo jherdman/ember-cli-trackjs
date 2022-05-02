@@ -37,7 +37,7 @@ module('Unit | Utility | error handler', function (hooks) {
   test('it handles error instances', function (assert) {
     handler.report(new Error('oh nose!'));
 
-    assert.equal(trackJs.getError(0).message, 'oh nose!');
+    assert.strictEqual(trackJs.getError(0).message, 'oh nose!');
   });
 
   test('it handles POJOs', function (assert) {
@@ -45,6 +45,6 @@ module('Unit | Utility | error handler', function (hooks) {
 
     let error = collapseWhitespace(trackJs.getError(0));
 
-    assert.equal(error, `{ "message": "TransitionAborted" }`);
+    assert.strictEqual(error, `{ "message": "TransitionAborted" }`);
   });
 });
