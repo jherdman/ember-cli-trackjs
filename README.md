@@ -1,13 +1,13 @@
-# ember-cli-trackjs [![npm version][npm-badge]][npm-badge-url] [![Build Status][travis-badge]][travis-badge-url] [![Dependency Status][david-badge]][david-badge-url] [![Ember Observer Score][ember-observer]][ember-observer-url]
+# ember-cli-trackjs [![npm version][npm-badge]][npm-badge-url] [![Build Status][ci-badge]][ci-badge-url] [![Dependency Status][david-badge]][david-badge-url] [![Ember Observer Score][ember-observer]][ember-observer-url]
 
 Handles all of the boilerplate shit you need to use TrackJS in your fancy Ember
 application.
 
 ## Compatibility
 
-- Ember.js v3.20 or above
-- Ember CLI v3.20 or above
-- Node.js v10 or above
+- Ember.js v3.24 or above
+- Ember CLI v3.24 or above
+- Node.js v14 or above
 
 ## Installation
 
@@ -107,8 +107,8 @@ This project is licensed under the [MIT License](LICENSE.md).
 
 [npm-badge]: https://badge.fury.io/js/ember-cli-trackjs.svg
 [npm-badge-url]: https://badge.fury.io/js/ember-cli-trackjs
-[travis-badge]: https://travis-ci.org/jherdman/ember-cli-trackjs.svg?branch=master
-[travis-badge-url]: https://travis-ci.org/jherdman/ember-cli-trackjs
+[ci-badge]: https://github.com/jherdman/ember-cli-trackjs/actions/workflows/ci.yml/badge.svg
+[ci-badge-url]: https://github.com/jherdman/ember-cli-trackjs/actions/workflows/ci.yml
 [david-badge]: https://david-dm.org/jherdman/ember-cli-trackjs.svg
 [david-badge-url]: https://david-dm.org/jherdman/ember-cli-trackjs
 [ember-observer]: http://emberobserver.com/badges/ember-cli-trackjs.svg

@@ -35,6 +35,6 @@ module('Acceptance | bootstrap', function (hooks) {
     assert.deepEqual(TrackJS.track.getCall(0).args, ['controller error']);
     assert.deepEqual(TrackJS.track.getCall(1).args, ['route error']);
 
-    assert.equal(TrackJS.isInstalled.callCount, 3);
+    assert.strictEqual(TrackJS.isInstalled.callCount, 3);
   });
 });

@@ -4,8 +4,8 @@ import { inject as service } from '@ember/service';
 export default class IndexController extends Controller {
   @service trackjs;
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
     this.trackjs.track('controller error');
   }
 }
